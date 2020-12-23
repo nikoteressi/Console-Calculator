@@ -1,6 +1,6 @@
 package calculator;
 
-public class WrongExpressionException extends Exception{
+public class WrongExpressionException extends Exception {
     public WrongExpressionException() {
     }
 

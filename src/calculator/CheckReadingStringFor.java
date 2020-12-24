@@ -9,17 +9,20 @@ public class CheckReadingStringFor {
 
         Pattern p = Pattern.compile("^([0-9]|[IVXivx]+)[-+/*]([0-9]|[IVXivx]+)$");
         Matcher m = p.matcher(expression);
+        boolean marker = false;
         if (!m.find()) {
             try {
                 throw new WrongExpressionException();
             } catch (WrongExpressionException e) {
                 System.err.println("""
-                        Вы ввели неверное выражение!Формат ввода: II+V или 5-4.
-                        В выражении не должно присутствовать никаких дополнительных знаков!
+                        Вы ввели неверное выражение или превысили допустимый диапазон чисел!
+                        Допустимые диапазоны: 0-10 или I-X
+                        В выражении не должно присутствовать никаких дополнительных знаков!     
                         """);
             }
-        }
-        return m.find();
+        } else marker = true;
+
+        return marker;
     }
 
     public static boolean romanDigits(String num1, String num2) {

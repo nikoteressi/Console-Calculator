@@ -19,7 +19,7 @@ public class ConsoleReader {
 
         String expression = reader.readLine();
 
-        if (calculator.CheckReadingStringFor.rightCharacters(expression)) {
+        if (CheckReadingStringFor.rightCharacters(expression)) {
 
             String[] numbers = expression.split("[+-/*]");
             String num1 = numbers[0];
@@ -27,34 +27,42 @@ public class ConsoleReader {
             int a, b;
 
 
-            if (calculator.CheckReadingStringFor.romanDigits(num1, num2)) {
+            if (CheckReadingStringFor.romanDigits(num1, num2)) {
 
-                a = calculator.ConvertDigits.toArabic(num1);
-                b = calculator.ConvertDigits.toArabic(num2);
+                a = ConvertDigits.toArabic(num1);
+                b = ConvertDigits.toArabic(num2);
 
-                if (a <= 0 || b <= 0) {
+                if (a == 0 || b == 0) {
 
-                    System.err.println("Вы ввели неверное римское число!");
+                    throw new NumberFormatException("Вы ввели неверное римское число!");
                 } else
 
-                    System.out.println(ConvertDigits.toRoman((int) calculator.Operations.calculating(expression, a, b)));
+                    ConvertDigits.toRoman((int) Operations.calculating(expression, a, b));
             } else {
 
                 try {
                     a = Integer.parseInt(num1);
                     b = Integer.parseInt(num2);
 
-                    System.out.println(calculator.Operations.calculating(expression, a, b));
+                    if (expression.contains("/") && b == 0) throw new ArithmeticException("На 0 делить нельзя");
+
+                    System.out.println(Operations.calculating(expression, a, b));
 
                 } catch (NumberFormatException e) {
 
                     System.err.println("""
                             Вы ввели неверное значение!
                             В выражении должны быть только арабские числа либо только римские!
-                            Вводите только правильные римские числа: "I II III IV V VI VII VIII IX X"
+                            Пример правильного выражения: 10/6 или V*X . 
                             """);
                 }
             }
-        }
+        } else
+            throw new NumberFormatException("""
+                                        
+                                        
+                    Вы ввели неверный операнд!
+                    Допустимые виды операций: + * - / .
+                    """);
     }
 }

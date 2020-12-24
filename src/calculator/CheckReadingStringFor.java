@@ -7,22 +7,13 @@ public class CheckReadingStringFor {
 
     public static boolean rightCharacters(String expression) {
 
-        Pattern p = Pattern.compile("^([0-9]|[IVXivx]+)[-+/*]([0-9]|[IVXivx]+)$");
+        Pattern p = Pattern.compile("([0-9]|[IVXivx]+)[-+/*]([0-9]|[IVXivx]+)");
         Matcher m = p.matcher(expression);
-        boolean marker = false;
-        if (!m.find()) {
-            try {
-                throw new WrongExpressionException();
-            } catch (WrongExpressionException e) {
-                System.err.println("""
-                        Вы ввели неверное выражение или превысили допустимый диапазон чисел!
-                        Допустимые диапазоны: 0-10 или I-X
-                        В выражении не должно присутствовать никаких дополнительных знаков!     
-                        """);
-            }
-        } else marker = true;
 
-        return marker;
+        if (expression.contains("."))
+            throw new IllegalArgumentException("Калькулятор работает только с целыми числами!");
+
+        return m.find();
     }
 
     public static boolean romanDigits(String num1, String num2) {

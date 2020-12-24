@@ -35,13 +35,10 @@ public class ConvertDigits {
 
         while ((arabicNumber > 0) && (i < romanNumbers.size())) {
 
-            Roman currentSymbol = romanNumbers.get(i);
+            if (romanNumbers.get(i).getValue() <= arabicNumber) {
 
-            if (currentSymbol.getValue() <= arabicNumber) {
-
-                sb.append(currentSymbol.name());
-
-                arabicNumber -= currentSymbol.getValue();
+                sb.append(romanNumbers.get(i).name());
+                arabicNumber -= romanNumbers.get(i).getValue();
 
             } else {
                 i++;

@@ -2,7 +2,7 @@
 
 The program is written to perform a test task for Java Mentors
 
-1. The calculator can perform operations of addition, subtraction, multiplication and division with two numbers: a + b, a - b, a * b, a / b. Data is transferred in one line ! Solutions in which each number and arithmetic operation are passed on a new line are considered invalid.
+1.The calculator can perform operations of addition, subtraction, multiplication and division with two numbers: a + b, a - b, a * b, a / b. Data is transferred in one line ! Solutions in which each number and arithmetic operation are passed on a new line are considered invalid.
 
 2.The calculator can work with  Arabic (1,2,3,4,5 ...) and Roman (I, II, III, IV, V ...) numbers.
 

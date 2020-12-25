@@ -3,6 +3,7 @@ package calculator;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Locale;
 
 
 public class ConsoleReader {
@@ -17,7 +18,7 @@ public class ConsoleReader {
                 На ввод принимаются только целые Числа!
                 """);
 
-        String expression = reader.readLine();
+        String expression = reader.readLine().toUpperCase(Locale.ENGLISH);
 
         if (CheckReadingStringFor.rightCharacters(expression)) {
 
@@ -61,7 +62,8 @@ public class ConsoleReader {
             throw new NumberFormatException("""
                                         
                                         
-                    Вы ввели неверный операнд!
+                    Вы ввели неверное выражение!
+                    Пример правильного выражения: 10/6 или V*X .
                     Допустимые виды операций: + * - / .
                     """);
     }

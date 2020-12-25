@@ -37,7 +37,7 @@ public class ConsoleReader {
                     throw new NumberFormatException("Вы ввели неверное римское число!");
                 } else
 
-                    ConvertDigits.toRoman((int) Operations.calculating(expression, a, b));
+                    System.out.println(ConvertDigits.toRoman((int) Operations.calculating(expression, a, b)));
             } else {
 
                 try {

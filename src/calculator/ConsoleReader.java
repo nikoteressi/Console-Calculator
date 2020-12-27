@@ -4,67 +4,46 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class ConsoleReader {
 
-    public static void readerStart() throws IOException {
-
+    public static ArithmeticExpression readFromConsole() throws IOException {
+        ArithmeticExpression expr = new ArithmeticExpression();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
         System.out.println("""
                 Введите выражение в формате 8-7 или III*V");
                 Число не должно превышать диапазон 0-10 и I-X !");
                 На ввод принимаются только целые Числа!
                 """);
-
         String expression = reader.readLine().toUpperCase(Locale.ENGLISH);
+        if (!CheckReadingStringFor.rightCharacters(expression)) {
+            throw new IllegalArgumentException(expression + " - неверное выражение!");
+        }
 
-        if (CheckReadingStringFor.rightCharacters(expression)) {
+        Pattern p = Pattern.compile("[/\\-+*]");
+        Matcher m = p.matcher(expression);
+        if (m.find()) {
+            expr.setOperation(Operation.valueOf(expression.charAt(m.start())));
+        } else {
+            throw new IllegalArgumentException("Wrong operation!");
+        }
 
-            String[] numbers = expression.split("[+-/*]");
-            String num1 = numbers[0];
-            String num2 = numbers[1];
-            int a, b;
-
-
-            if (CheckReadingStringFor.romanDigits(num1, num2)) {
-
-                a = ConvertDigits.toArabic(num1);
-                b = ConvertDigits.toArabic(num2);
-
-                if (a == 0 || b == 0) {
-
-                    throw new NumberFormatException("Вы ввели неверное римское число!");
-                } else
-
-                    System.out.println(ConvertDigits.toRoman((int) Operations.calculating(expression, a, b)));
-            } else {
-
-                try {
-                    a = Integer.parseInt(num1);
-                    b = Integer.parseInt(num2);
-
-                    if (expression.contains("/") && b == 0) throw new ArithmeticException("На 0 делить нельзя");
-
-                    System.out.println(Operations.calculating(expression, a, b));
-
-                } catch (NumberFormatException e) {
-
-                    System.err.println("""
-                            Вы ввели неверное значение!
-                            В выражении должны быть только арабские числа либо только римские!
-                            Пример правильного выражения: 10/6 или V*X . 
-                            """);
-                }
-            }
-        } else
-            throw new NumberFormatException("""
-                                        
-                                        
-                    Вы ввели неверное выражение!
-                    Пример правильного выражения: 10/6 или V*X .
-                    Допустимые виды операций: + * - / .
-                    """);
+        String[] numbers = expression.split("[/\\-+*]");
+        String num1 = numbers[0];
+        String num2 = numbers[1];
+        if (num1.matches("[0-9]\\.[0-9]") || num2.matches("[0-9]\\.[0-9]")) {
+            throw new IllegalArgumentException("Калькулятор работает только с целыми числами!");
+        }
+        if (CheckReadingStringFor.romanDigits(num1, num2)) {
+            expr.setNumber1(new RomanNumber(num1));
+            expr.setNumber2(new RomanNumber(num2));
+        } else {
+            expr.setNumber1(new ArabicNumber(Integer.parseInt(num1)));
+            expr.setNumber2(new ArabicNumber(Integer.parseInt(num2)));
+        }
+        return expr;
     }
 }

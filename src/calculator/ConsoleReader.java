@@ -34,13 +34,14 @@ public class ConsoleReader {
         String[] numbers = expression.split("[/\\-+*]");
         String num1 = numbers[0];
         String num2 = numbers[1];
-        if (num1.matches("[0-9]\\.[0-9]") || num2.matches("[0-9]\\.[0-9]")) {
-            throw new IllegalArgumentException("Калькулятор работает только с целыми числами!");
-        }
         if (CheckReadingStringFor.romanDigits(num1, num2)) {
             expr.setNumber1(new RomanNumber(num1));
             expr.setNumber2(new RomanNumber(num2));
         } else {
+            if ((Integer.parseInt(num1)<0 || Integer.parseInt(num1)>10)||
+                    (Integer.parseInt(num2)<0 || Integer.parseInt(num2)>10)){
+                throw new IllegalArgumentException("Вы превысили допустимый диапазон арабских цифр!");
+            }
             expr.setNumber1(new ArabicNumber(Integer.parseInt(num1)));
             expr.setNumber2(new ArabicNumber(Integer.parseInt(num2)));
         }

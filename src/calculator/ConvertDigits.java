@@ -11,7 +11,7 @@ public class ConvertDigits {
     public static String toRoman(int arabicNumber) {
 
         if ((arabicNumber <= 0)) {
-            throw new IllegalArgumentException("В римских цифрах нет нулевого и отрицательного значения!");
+            throw new IllegalArgumentException("Вы превысили допустимый диапазон римских цифр");
         }
 
         List<Roman> romanNumbers = Arrays.stream(Roman.values())

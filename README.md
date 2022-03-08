@@ -1,6 +1,6 @@
 # TestTaskForJM
 
-The program is written to perform a test task for Java Mentors
+Concole Calculator
 
 1.The calculator can perform operations of addition, subtraction, multiplication and division with two numbers: a + b, a - b, a * b, a / b. Data is transferred in one line ! Solutions in which each number and arithmetic operation are passed on a new line are considered invalid.
 
